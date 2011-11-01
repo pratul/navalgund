@@ -1,0 +1,8 @@
+bin/
+.settings/
+gen/
+local.properties
+default.properties
+*~
+.DS_Store
+*.tmproj
