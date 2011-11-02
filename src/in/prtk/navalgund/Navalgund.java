@@ -2,6 +2,7 @@ package in.prtk.navalgund;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Window;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -19,6 +20,7 @@ public class Navalgund extends Activity {
         setContentView(R.layout.main);
 
         wv = (WebView) findViewById(R.id.webview);
+        wv.setWebViewClient(new HelloWebViewClient());
         wv.getSettings().setJavaScriptEnabled(true);
 
         final Activity activity = this;
@@ -36,6 +38,25 @@ public class Navalgund extends Activity {
         });
 
         wv.loadUrl("http://27.7.20.190/~prateeksaxena/game/");
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && wv.canGoBack()) {
+            wv.goBack();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
+    private class HelloWebViewClient extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
     }
 
 }
